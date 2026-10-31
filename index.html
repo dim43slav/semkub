@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ваш сайт - Главная страница</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- Иконки Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Дополнительные стили для hero с изображением */
+        .hero-with-image {
+            position: relative;
+            padding: 180px 0 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero-with-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/first_img.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+        
+        .hero-with-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
+            z-index: 2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-hero {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hero-primary {
+            background-color: #3498db;
+            border: 2px solid #3498db;
+        }
+        
+        .btn-hero-primary:hover {
+            background-color: transparent;
+            border-color: white;
+        }
+        
+        .btn-hero-outline {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        .btn-hero-outline:hover {
+            background-color: white;
+            color: #2c3e50;
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        /* Секция с преимуществами на фоне изображения */
+        .features-overlay {
+            position: relative;
+            padding: 80px 0;
+            color: white;
+        }
+        
+        .features-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/first_img.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        .features-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 62, 80, 0.9);
+            z-index: 2;
+        }
+        
+        .features-overlay .container {
+            position: relative;
+            z-index: 3;
+        }
+        
+        /* Стили для статистики */
+        .stats-counter {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Адаптивность для hero */
+        @media (max-width: 768px) {
+            .hero-with-image {
+                padding: 150px 0 80px;
+                text-align: center;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .btn-hero {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .stats-counter {
+                gap: 15px;
+            }
+            
+            .stat-item {
+                flex: 0 0 calc(50% - 15px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-with-image {
+                padding: 120px 0 60px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-hero {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .stat-item {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="header-container">
+                <!-- Логотип -->
+                <a href="#" class="logo">
+                    <i class="fas fa-cube"></i>
+                    <span>BrandName</span>
+                </a>
+                
+                <!-- Навигация -->
+                <nav class="nav">
+                    <ul class="nav-menu">
+                        <li><a href="#home" class="nav-link active">Главная</a></li>
+                        <li><a href="#about" class="nav-link">О нас</a></li>
+                        <li><a href="#services" class="nav-link">Услуги</a></li>
+                        <li><a href="#portfolio" class="nav-link">Портфолио</a></li>
+                        <li><a href="#contact" class="nav-link">Контакты</a></li>
+                    </ul>
+                    
+                    <!-- Кнопка мобильного меню -->
+                    <button class="mobile-menu-btn" aria-label="Меню">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Герой-секция с изображением -->
+    <section id="home" class="hero-with-image">
+        <div class="container">
+            <div class="hero-content animate-fade-in-up">
+                <h1 class="hero-title">Ваш впечатляющий заголовок</h1>
+                <p class="hero-subtitle">
+                    Краткое и привлекательное описание вашего проекта, компании или услуги. 
+                    Расскажите посетителям, почему они должны выбрать именно вас.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-hero btn-hero-primary">
+                        <i class="fas fa-paper-plane"></i> Начать проект
+                    </a>
+                    <a href="#about" class="btn btn-hero btn-hero-outline">
+                        <i class="fas fa-info-circle"></i> Узнать больше
+                    </a>
+                </div>
+                
+                <!-- Статистика (опционально) -->
+                <div class="stats-counter">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="150">0</div>
+                        <div class="stat-text">Завершенных проектов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-text">Довольных клиентов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="5">0</div>
+                        <div class="stat-text">Лет опыта</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="24">0</div>
+                        <div class="stat-text">Поддержка 24/7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "О нас" -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">О нашей компании</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3><i class="fas fa-bullseye"></i> Наша миссия</h3>
+                    <p>
+                        Мы стремимся предоставлять исключительные услуги, которые превосходят ожидания наших клиентов. 
+                        Наша цель - создавать решения, которые делают жизнь и бизнес наших клиентов лучше.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-eye"></i> Наше видение</h3>
+                    <p>
+                        Стать лидером в нашей отрасли, известным инновациями, качеством и преданностью клиентам. 
+                        Мы видим будущее, в котором технологии служат людям, а не наоборот.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-2">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-handshake"></i> Связаться с нами
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция услуг на фоне изображения -->
+    <section class="features-overlay">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <div class="grid grid-3">
+                <div class="card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+                    <div class="text-center mb-1">
+                        <i class="fas fa-star" style="font-size: 3rem; color: #3498db;"></i>
+                    </div>
+                    <h3 class="text-center">Высокое качество</h3>
+                    <p class="text-center">
+                        Мы гарантируем премиальное качество всех наших услуг и продуктов.
+                    </p>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+                    <div class="text-center mb-1">
+                        <i class="fas fa-clock" style="font-size: 3rem; color: #3498db;"></i>
+                    </div>
+                    <h3 class="text-center">Своевременность</h3>
+                    <p class="text-center">
+                        Все проекты выполняются в срок, который мы согласовываем заранее.
+                    </p>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+                    <div class="text-center mb-1">
+                        <i class="fas fa-headset" style="font-size: 3rem; color: #3498db;"></i>
+                    </div>
+                    <h3 class="text-center">Поддержка</h3>
+                    <p class="text-center">
+                        Круглосуточная поддержка клиентов и техническая помощь.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция услуг -->
+    <section id="services" class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Наши услуги</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3><i class="fas fa-laptop-code"></i> Веб-разработка</h3>
+                    <p>
+                        Создание современных веб-сайтов и веб-приложений с использованием 
+                        последних технологий и лучших практик.
+                    </p>
+                    <a href="#" class="btn btn-outline mt-1">Подробнее</a>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-mobile-alt"></i> Мобильные приложения</h3>
+                    <p>
+                        Разработка нативных и кроссплатформенных мобильных приложений 
+                        для iOS и Android.
+                    </p>
+                    <a href="#" class="btn btn-outline mt-1">Подробнее</a>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Digital-маркетинг</h3>
+                    <p>
+                        Продвижение вашего бизнеса в интернете с помощью комплексных 
+                        маркетинговых стратегий.
+                    </p>
+                    <a href="#" class="btn btn-outline mt-1">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контактная форма -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>Контактная информация</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Примерная, д. 1</p>
+                        <p><i class="fas fa-phone"></i> +7 (999) 123-45-67</p>
+                        <p><i class="fas fa-envelope"></i> info@example.com</p>
+                        <p><i class="fas fa-clock"></i> Пн-Пт: 9:00-18:00</p>
+                    </div>
+                    
+                    <div class="social-links mt-2">
+                        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <form id="contactForm" data-validation>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Ваш телефон">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="5" placeholder="Ваше сообщение" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Отправить сообщение
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">О компании</h3>
+                    <p>Краткое описание вашей компании и ее деятельности. Расскажите о ваших ценностях и преимуществах.</p>
+                </div>
+                <div>
+                    <h3 class="footer-title">Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#portfolio">Портфолио</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Услуги</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Веб-разработка</a></li>
+                        <li><a href="#">Мобильные приложения</a></li>
+                        <li><a href="#">Дизайн</a></li>
+                        <li><a href="#">Маркетинг</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Подписка</h3>
+                    <p>Подпишитесь на нашу рассылку для получения новостей и специальных предложений.</p>
+                    <div class="subscribe-form mt-1">
+                        <input type="email" placeholder="Ваш email" class="form-control">
+                        <button class="btn btn-primary mt-1">Подписаться</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 BrandName. Все права защищены.</p>
+                <p class="mt-1" style="font-size: 0.8rem; color: #aaa;">
+                    <a href="#" style="color: #aaa;">Политика конфиденциальности</a> | 
+                    <a href="#" style="color: #aaa;">Условия использования</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <button class="scroll-top-btn hidden">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Подключение JavaScript -->
+    <script src="js/script.js"></script>
+    <script>
+        // Дополнительные скрипты для этой страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анимация счетчиков статистики
+            function animateCounter(element, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    element.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            // Запуск анимации счетчиков при прокрутке
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counters = document.querySelectorAll('.stat-number');
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.getAttribute('data-count'));
+                            animateCounter(counter, 0, target, 2000);
+                        });
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            const statsSection = document.querySelector('.stats-counter');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+            
+            // Анимация социальных иконок
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach(icon => {
+                icon.style.transition = 'all 0.3s ease';
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+                });
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // Стили для социальных иконок
+            const style = document.createElement('style');
+            style.textContent = `
+                .social-links {
+                    display: flex;
+                    gap: 15px;
+                    margin-top: 20px;
+                }
+                
+                .social-icon {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    background: #3498db;
+                    color: white;
+                    border-radius: 50%;
+                    font-size: 1.2rem;
+                    transition: all 0.3s ease;
+                }
+                
+                .social-icon:hover {
+                    background: #2980b9;
+                    color: white;
+                }
+                
+                .contact-info p {
+                    margin-bottom: 15px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                
+                .contact-info i {
+                    color: #3498db;
+                    width: 20px;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
