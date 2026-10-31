@@ -11,10 +11,17 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+			html, body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			max-width: 100%;
+			overflow-x: hidden;
+		}
         /* Дополнительные стили для hero с изображением */
         .hero-with-image {
             position: relative;
-            padding: 180px 0 100px;
+            padding: 100px 0 0px;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -30,7 +37,7 @@
             right: 0;
             bottom: 0;
             background-image: url('images/first_img.png');
-            background-size: cover;
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
@@ -43,18 +50,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
             z-index: 2;
         }
         
         .hero-content {
             position: relative;
-            z-index: 3;
-            max-width: 800px;
+            z-index: 4;
+            max-width: 8000px;
+			padding-left: 100px;
         }
         
         .hero-title {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2rem, 4vw, 3.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             line-height: 1.1;
@@ -65,7 +73,7 @@
             font-size: clamp(1.1rem, 3vw, 1.5rem);
             margin-bottom: 2.5rem;
             opacity: 0.95;
-            max-width: 600px;
+            max-width: 5000px;
         }
         
         .hero-buttons {
@@ -227,6 +235,91 @@
                 flex: 0 0 100%;
             }
         }
+		/* ===== Шапка поверх hero-секции ===== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header.scrolled {
+    background-color: rgba(44, 62, 80, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header .header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.header .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.header .logo span { color: #fff; }
+
+/* Горизонтальное меню на десктопе */
+@media (min-width: 769px) {
+    .header .nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .header .nav-menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header .nav-link {
+        position: relative;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+		font-size: 1.3rem; 
+        padding: 5px 0;
+        transition: color 0.3s ease;
+    }
+
+    .header .nav-link::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 2px;
+        background-color: #3498db;
+        transition: width 0.3s ease;
+    }
+
+    .header .nav-link:hover,
+    .header .nav-link.active { color: #3498db; }
+
+    .header .nav-link:hover::after,
+    .header .nav-link.active::after { width: 100%; }
+}
+.mobile-menu-btn {
+    display: none;
+}
     </style>
 </head>
 <body>
@@ -243,10 +336,9 @@
                 <!-- Навигация -->
                 <nav class="nav">
                     <ul class="nav-menu">
-                        <li><a href="#home" class="nav-link active">Главная</a></li>
+                        <li><a href="#home" class="nav-link">Главная</a></li>
                         <li><a href="#about" class="nav-link">О нас</a></li>
-                        <li><a href="#services" class="nav-link">Услуги</a></li>
-                        <li><a href="#portfolio" class="nav-link">Портфолио</a></li>
+                        <li><a href="#services" class="nav-link">Продукция</a></li>
                         <li><a href="#contact" class="nav-link">Контакты</a></li>
                     </ul>
                     
@@ -263,20 +355,11 @@
     <section id="home" class="hero-with-image">
         <div class="container">
             <div class="hero-content animate-fade-in-up">
-                <h1 class="hero-title">Ваш впечатляющий заголовок</h1>
+                <h1 class="hero-title">ООО НПП «Семена Кубани»</h1>
                 <p class="hero-subtitle">
-                    Краткое и привлекательное описание вашего проекта, компании или услуги. 
-                    Расскажите посетителям, почему они должны выбрать именно вас.
+                   Более 15 лет производим и доставляем качественные семена кукурузы для Вас
                 </p>
-                
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-hero btn-hero-primary">
-                        <i class="fas fa-paper-plane"></i> Начать проект
-                    </a>
-                    <a href="#about" class="btn btn-hero btn-hero-outline">
-                        <i class="fas fa-info-circle"></i> Узнать больше
-                    </a>
-                </div>
+               
                 
                 <!-- Статистика (опционально) -->
                 <div class="stats-counter">
@@ -285,11 +368,11 @@
                         <div class="stat-text">Завершенных проектов</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-number" data-count="500">0</div>
                         <div class="stat-text">Довольных клиентов</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="5">0</div>
+                        <div class="stat-number" data-count="16">0</div>
                         <div class="stat-text">Лет опыта</div>
                     </div>
                     <div class="stat-item">
@@ -501,6 +584,14 @@
     <script>
         // Дополнительные скрипты для этой страницы
         document.addEventListener('DOMContentLoaded', function() {
+			const header = document.querySelector('.header');
+			if (header) {
+				const onScroll = () => {
+					header.classList.toggle('scrolled', window.scrollY > 50);
+				};
+				window.addEventListener('scroll', onScroll);
+				onScroll();
+			}
             // Анимация счетчиков статистики
             function animateCounter(element, start, end, duration) {
                 let startTimestamp = null;
